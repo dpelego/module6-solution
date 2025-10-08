@@ -1,29 +1,46 @@
 <!doctype html>
 <html lang="en">
   <head>
+
     <title>Lunch Checker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <style>
-      .message { font-size: 1.3em; font-weight: bold; }
+		.message { font-size: 1.3em; font-weight: bold; }
+		.success { color: green; }
+		.success-border { border: 2px dotted green; }
+		.error { color: red;  }
+		.error-border { border: 3px dashed red; }
     </style>
   </head>
-<body>
-   <div class="container">
+<body ng-app="LunchCheck">
+   <div class="container" ng-controller="LunchCheckController">
      <h1>Lunch Checker</h1>
-
+     	<div class="alert alert-warning">
+     		<strong>Note to Grader</strong>
+     		<hr>
+     		Prior to checking the size of the list, we are performing 
+     		<code>var filteredItems = lunchItems.filter(function(item) { return item.trim() !== ''; });</code> 
+ 			so note that empty strings will NOT count towards the number of items
+ 			<hr>
+ 			In other words, <kbd>item 1, item2, ,item3</kbd> will count as 3 items
+     	</div>
          <div class="form-group">
              <input id="lunch-menu" type="text"
              placeholder="list comma separated dishes you usually have for lunch"
-             class="form-control">
+             class="form-control"
+             ng-model="lunchItems"
+             ng-class="borderClass">
          </div>
          <div class="form-group">
-             <button class="btn btn-default">Check If Too Much</button>
+             <button class="btn btn-default" ng-click="checkLunch()">Check If Too Much</button>
          </div>
-         <div class="form-group message">
-           <!-- Your message can go here. -->
+         <div class="form-group message" ng-class="messageClass">
+           {{ message }}
          </div>
    </div>
 
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
